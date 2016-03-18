@@ -1,8 +1,9 @@
 #pragma once
 
 
-#include "nanovg/src/nanovg.h"
 #include "ofMain.h"
+#include "nanovg/src/nanovg.h"
+#include "nanovg/src/nanovg_gl.h"
 
 NVGcontext *nvgCreateOFX(int flags);
 void nvgDeleteOFX(NVGcontext *ctx);
