@@ -28,6 +28,13 @@ GLuint nvglImageHandleOF(NVGcontext* ctx, int image) {
 	if (ofIsGLProgrammableRenderer()) {
 		return nvglImageHandleGL3(ctx, image);
 	} else {
-		return nvglImageHandleGL2(ctx, image);
+		return nvglImageFromHandleGL2(ctx, image);
 	}
+}
+
+
+
+ofxNanoVG::~ofxNanoVG() {
+    nvgDeleteOFX(ctx);
+    ctx = 0;
 }
