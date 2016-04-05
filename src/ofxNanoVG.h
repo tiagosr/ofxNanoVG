@@ -45,8 +45,14 @@ public:
     void reset() { nvgReset(ctx); }
     
     void strokeColor(ofColor c) { nvgStrokeColor(ctx, toNVGcolor(c)); }
+    void strokeColor(float r, float g, float b, float a = 255.0f) {
+        strokeColor(ofColor(r, g, b, a));
+    }
     void strokePaint(NVGpaint paint) { nvgStrokePaint(ctx, paint); }
     void fillColor(ofColor c) { nvgFillColor(ctx, toNVGcolor(c)); }
+    void fillColor(float r, float g, float b, float a = 255.0f) {
+        fillColor(ofColor(r, g, b, a));
+    }
     void fillPaint(NVGpaint paint) { nvgFillPaint(ctx, paint); }
     
     void miterLimit(float limit) { nvgMiterLimit(ctx, limit); }
@@ -65,7 +71,7 @@ public:
             float f[6];
         };
     };
-
+    
     void resetTransform() { nvgResetTransform(ctx); }
     void transform(const Transform& t) {
         nvgTransform(ctx, t.a, t.b, t.c, t.d, t.x, t.y);
@@ -208,7 +214,7 @@ public:
     void bezierTo(float c1x, float c1y, float c2x, float c2y, float x, float y) {
         nvgBezierTo(ctx, c1x, c1y, c2x, c2y, x, y);
     }
-    void bezierto(ofVec2f c1, ofVec2f c2, ofVec2f v) {
+    void bezierTo(ofVec2f c1, ofVec2f c2, ofVec2f v) {
         bezierTo(c1.x, c1.y, c2.x, c2.y, v.x, v.y);
     }
     void quadTo(float cx, float cy, float x, float y) {
@@ -219,7 +225,7 @@ public:
     }
     void closePath() { nvgClosePath(ctx); }
     void pathWinding(int dir) { nvgPathWinding(ctx, dir); }
-
+    
     void arcTo(float x1, float y1, float x2, float y2, float radius) {
         nvgArcTo(ctx, x1, y1, x2, y2, radius);
     }
@@ -255,7 +261,7 @@ public:
     void fontBlur(float blur) { nvgFontBlur(ctx, blur); }
     void textLetterSpacing(float spacing) { nvgTextLetterSpacing(ctx, spacing); }
     void textLineHeight(float height) { nvgTextLineHeight(ctx, height); }
-    void textAlgn(int align) { nvgTextAlign(ctx, align); }
+    void textAlign(int align) { nvgTextAlign(ctx, align); }
     void fontFaceId(int font) { nvgFontFaceId(ctx, font); }
     void fontFace(const string& name) { nvgFontFace(ctx, name.c_str()); }
     float text(float x, float y, const string& str) {

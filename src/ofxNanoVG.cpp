@@ -4,32 +4,32 @@
 
 
 NVGcontext *nvgCreateOFX(int flags) {
-	if (ofIsGLProgrammableRenderer()) {
-		return nvgCreateGL3(flags);
-	} else {
-		return nvgCreateGL2(flags);
-	}
+    if (ofIsGLProgrammableRenderer()) {
+        return nvgCreateGL3(flags);
+    } else {
+        return nvgCreateGL2(flags);
+    }
 }
 void nvgDeleteOFX(NVGcontext *ctx) {
-	if (ofIsGLProgrammableRenderer()) {
+    if (ofIsGLProgrammableRenderer()) {
         nvgDeleteGL3(ctx);
-	} else {
-		nvgDeleteGL2(ctx);
-	}
+    } else {
+        nvgDeleteGL2(ctx);
+    }
 }
 int nvglCreateImageFromHandleOF(NVGcontext* ctx, GLuint textureId, int w, int h, int flags) {
-	if (ofIsGLProgrammableRenderer()) {
-		return nvglCreateImageFromHandleGL3(ctx, textureId, w, h, flags);
-	} else {
-		return nvglCreateImageFromHandleGL2(ctx, textureId, w, h, flags);
-	}
+    if (ofIsGLProgrammableRenderer()) {
+        return nvglCreateImageFromHandleGL3(ctx, textureId, w, h, flags);
+    } else {
+        return nvglCreateImageFromHandleGL2(ctx, textureId, w, h, flags);
+    }
 }
 GLuint nvglImageHandleOF(NVGcontext* ctx, int image) {
-	if (ofIsGLProgrammableRenderer()) {
-		return nvglImageHandleGL3(ctx, image);
-	} else {
-		return nvglImageFromHandleGL2(ctx, image);
-	}
+    if (ofIsGLProgrammableRenderer()) {
+        return nvglImageHandleGL3(ctx, image);
+    } else {
+        return nvglImageFromHandleGL2(ctx, image);
+    }
 }
 
 
@@ -37,4 +37,10 @@ GLuint nvglImageHandleOF(NVGcontext* ctx, int image) {
 ofxNanoVG::~ofxNanoVG() {
     nvgDeleteOFX(ctx);
     ctx = 0;
+}
+
+int ofxNanoVG::createFontBuf(const string & name, const ofBuffer & buf) {
+    unsigned char* bc = (unsigned char*)malloc(buf.size());
+    memcpy(bc, buf.getData(), buf.size());
+    return nvgCreateFontMem(ctx, name.c_str(), bc, buf.size(), 1);
 }
