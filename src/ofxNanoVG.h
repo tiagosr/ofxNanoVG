@@ -147,7 +147,7 @@ public:
         return v;
     }
     
-    int createImage(const string& filename, int imageFlags) {
+    int createImageRaw(const string& filename, int imageFlags) {
         return nvgCreateImage(ctx, filename.c_str(), imageFlags);
     }
     int createImageBuf(const ofBuffer& buf, int imageFlags) {
@@ -155,6 +155,9 @@ public:
     }
     int createImageRGBA(int w, int h, int imageFlags, const unsigned char* data) {
         return nvgCreateImageRGBA(ctx, w, h, imageFlags, data);
+    }
+    int createImage(const string& filename, int imageFlags) {
+        return createImageBuf(ofBufferFromFile(filename, true), imageFlags);
     }
     void updateImage(int image, const unsigned char* data) {
         nvgUpdateImage(ctx, image, data);
@@ -250,8 +253,11 @@ public:
     void stroke() { nvgStroke(ctx); }
     
     
-    int createFont(const string& name, const string& filename) {
+    int createFontBare(const string& name, const string& filename) {
         return nvgCreateFont(ctx, name.c_str(), filename.c_str());
+    }
+    int createFont(const string& name, const string& filename) {
+        return createFontBuf(name, ofBufferFromFile(filename, true));
     }
     int createFontBuf(const string& name, const ofBuffer& buf);
     int findFont(const string& name) {
